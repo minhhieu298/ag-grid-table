@@ -20,12 +20,10 @@ span.ag-header-cell-text {
   text-align: center;
 }
 
-/* .ag-header-row .ag-header-cell:last-child{
-    border: none;
-  } */
-/* .ag-header-group-cell-with-group {
-    background-color: #00e7b1 !important;
-  } */
+.ag-ltr .ag-cell-focus:not(.ag-cell-range-selected):focus-within, .ag-ltr .ag-context-menu-open .ag-cell-focus:not(.ag-cell-range-selected), .ag-ltr .ag-full-width-row.ag-row-focus:focus .ag-cell-wrapper.ag-row-group, .ag-ltr .ag-cell-range-single-cell, .ag-ltr .ag-cell-range-single-cell.ag-cell-range-handle, .ag-rtl .ag-cell-focus:not(.ag-cell-range-selected):focus-within, .ag-rtl .ag-context-menu-open .ag-cell-focus:not(.ag-cell-range-selected), .ag-rtl .ag-full-width-row.ag-row-focus:focus .ag-cell-wrapper.ag-row-group, .ag-rtl .ag-cell-range-single-cell, .ag-rtl .ag-cell-range-single-cell.ag-cell-range-handle {
+  outline: none;
+  border: none;
+}
 
 .test-grid {
   height: 1px;
