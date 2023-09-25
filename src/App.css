@@ -1,0 +1,9 @@
+.ag-header-span-total {
+  border-right: 1px solid #babfc7;
+}
+.ag-header-row.ag-header-row-column > div {
+  border-right: 1px solid #babfc7;
+}
+.ag-header-group-cell.ag-header-group-cell-with-group{
+  border-right: 1px solid #babfc7;
+}
