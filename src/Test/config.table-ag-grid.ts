@@ -1,12 +1,19 @@
 import { ColDef, ColGroupDef, GridOptions } from "ag-grid-community";
+import {
+  CellRenderDefault,
+  CellRenderSan,
+  CellRenderTC,
+  CellRenderTemplate,
+  CellRenderTran,
+} from "./CustomTemplate";
 
 const check = {
-    MKL4: false,
-    BKL4: false,
-    Avg: false,
+  MKL4: false,
+  BKL4: false,
+  Avg: false,
 };
 
-export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => { 
+export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
   return [
     {
       headerName: "Mã",
@@ -14,6 +21,7 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
       colId: "1",
       suppressSizeToFit: true,
       width: 90,
+      cellRenderer: CellRenderTemplate,
     },
     {
       headerName: "TC",
@@ -21,6 +29,7 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
       colId: "2",
       suppressSizeToFit: true,
       maxWidth: 50,
+      cellRenderer: CellRenderTC,
     },
     {
       headerName: "Trần",
@@ -28,6 +37,7 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
       colId: "3",
       suppressSizeToFit: true,
       maxWidth: 50,
+      cellRenderer: CellRenderTran,
     },
     {
       headerName: "Sàn",
@@ -35,6 +45,7 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
       colId: "4",
       suppressSizeToFit: true,
       maxWidth: 50,
+      cellRenderer: CellRenderSan,
     },
     {
       headerName: "Mua",
@@ -46,6 +57,7 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           field: "MKL4",
           colId: "25",
           hide: check.MKL4,
+          cellRenderer: CellRenderTemplate,
         },
         {
           headerName: "G3",
@@ -53,6 +65,7 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           colId: "26",
           suppressSizeToFit: true,
           maxWidth: 50,
+          cellRenderer: CellRenderTemplate,
         },
         {
           headerName: "KL3",
@@ -61,6 +74,7 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           suppressSizeToFit: true,
           maxWidth: 100,
           width: 80,
+          cellRenderer: CellRenderTemplate,
         },
         {
           headerName: "G2",
@@ -68,6 +82,7 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           colId: "28",
           suppressSizeToFit: true,
           maxWidth: 50,
+          cellRenderer: CellRenderTemplate,
         },
         {
           headerName: "KL2",
@@ -76,6 +91,7 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           suppressSizeToFit: true,
           maxWidth: 100,
           width: 70,
+          cellRenderer: CellRenderTemplate,
         },
         {
           headerName: "G1",
@@ -83,6 +99,7 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           colId: "29",
           suppressSizeToFit: true,
           maxWidth: 50,
+          cellRenderer: CellRenderTemplate,
         },
         {
           headerName: "KL1",
@@ -91,6 +108,7 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           suppressSizeToFit: true,
           maxWidth: 100,
           width: 70,
+          cellRenderer: CellRenderTemplate,
         },
       ],
     },
@@ -102,6 +120,7 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           headerName: "Giá",
           field: "Gia",
           colId: "14",
+          cellRenderer: CellRenderTemplate,
         },
         {
           headerName: "KL",
@@ -110,12 +129,14 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           suppressSizeToFit: true,
           maxWidth: 100,
           width: 80,
+          cellRenderer: CellRenderTemplate,
         },
         {
           colId: "16",
-          field: "PD",  
+          field: "PD",
           suppressSizeToFit: true,
           maxWidth: 60,
+          cellRenderer: CellRenderTemplate,
           headerComponentParams: {
             template: `
               <div class="ag-cell-label-container" role="presentation">
@@ -142,6 +163,7 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           colId: "17",
           suppressSizeToFit: true,
           maxWidth: 50,
+          cellRenderer: CellRenderTemplate,
         },
         {
           headerName: "KL1",
@@ -150,6 +172,7 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           suppressSizeToFit: true,
           maxWidth: 100,
           width: 70,
+          cellRenderer: CellRenderTemplate,
         },
         {
           headerName: "G2",
@@ -157,6 +180,7 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           colId: "19",
           suppressSizeToFit: true,
           maxWidth: 50,
+          cellRenderer: CellRenderTemplate,
         },
         {
           headerName: "KL2",
@@ -165,6 +189,7 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           suppressSizeToFit: true,
           maxWidth: 100,
           width: 70,
+          cellRenderer: CellRenderTemplate,
         },
         {
           headerName: "G3",
@@ -172,6 +197,7 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           colId: "21",
           suppressSizeToFit: true,
           maxWidth: 50,
+          cellRenderer: CellRenderTemplate,
         },
         {
           headerName: "KL3",
@@ -180,6 +206,7 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           suppressSizeToFit: true,
           maxWidth: 100,
           width: 80,
+          cellRenderer: CellRenderTemplate,
         },
         {
           headerName: "KL4",
@@ -189,6 +216,7 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           suppressSizeToFit: true,
           maxWidth: 35,
           width: 35,
+          cellRenderer: CellRenderTemplate,
         },
       ],
     },
@@ -197,51 +225,72 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
       field: "TotalKL",
       colId: "8",
       suppressSizeToFit: true,
-      maxWidth: 100,
-      width: 100,
+      maxWidth: 80,
+      width: 80,
+      cellRenderer: CellRenderDefault,
     },
     {
       headerName: "Mở cửa",
       field: "Open",
       colId: "9",
       hide: false,
+      cellRenderer: CellRenderTemplate,
+      suppressSizeToFit: true,
+      maxWidth: 50,
     },
     {
       headerName: "Cao nhất",
       field: "Max",
       colId: "10",
       hide: false,
+      cellRenderer: CellRenderTemplate,
+      suppressSizeToFit: true,
+      maxWidth: 50,
     },
     {
       headerName: "Thấp nhất",
       field: "Min",
       colId: "23",
       hide: false,
+      cellRenderer: CellRenderTemplate,
+      suppressSizeToFit: true,
+      maxWidth: 50,
     },
     {
       headerName: "Trung bình",
       field: "Avg",
       colId: "24",
       hide: check.Avg,
+      cellRenderer: CellRenderTemplate,
+      suppressSizeToFit: true,
+      maxWidth: 50,
     },
     {
       headerName: "NN mua",
       field: "NNMua",
       colId: "11",
       hide: false,
+      cellRenderer: CellRenderDefault,
+      suppressSizeToFit: true,
+      maxWidth: 60,
     },
     {
       headerName: "NN bán",
       field: "NNBan",
       colId: "12",
       hide: false,
+      cellRenderer: CellRenderDefault,
+      suppressSizeToFit: true,
+      maxWidth: 60,
     },
     {
       headerName: "Room còn lại",
       field: "Room",
-      minWidth: 100,
       colId: "13",
       hide: false,
+      cellRenderer: CellRenderDefault,
+      suppressSizeToFit: true,
+      maxWidth: 100,
     },
   ];
 };
@@ -251,6 +300,6 @@ export const gridOptions: GridOptions = {
   getRowId: (data) => {
     return data.data.id;
   },
-  rowBuffer:0,
-  suppressContextMenu:true
+  rowBuffer: 0,
+  suppressContextMenu: true,
 };

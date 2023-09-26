@@ -7,12 +7,14 @@ import {
   // IServerSideDatasource,
 } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
-import 'ag-grid-enterprise';
+import "ag-grid-enterprise";
 import "ag-grid-community/styles/ag-grid.css";
+// import "ag-grid-community/styles/ag-theme-alpine-dark.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
-import { useMemo, useState, useCallback } from "react";
+
+import { useMemo, useState, useCallback, useEffect } from "react";
 import { useQuery } from "react-query";
-import { getDataApi } from "./getApi";
+import { Data, getDataApi } from "./getApi";
 import { ColumnDefinition, gridOptions } from "./config.table-ag-grid";
 
 const my_arr = {
@@ -37,20 +39,16 @@ export interface IData {
   Info: string[][];
 }
 
-
 const Table = () => {
   const containerStyle = useMemo(() => ({ width: "100%", height: "100%" }), []);
+  const [isDOMReady, setIsDOMReady] = useState(false);
   const gridStyle = useMemo(() => ({ height: "100%", width: "100%" }), []);
+  const [rowData, setRowData] = useState<Data[]>([]);
+  const [pin, setPin] = useState<any>([]);
 
-  const { data } = useQuery<IData[], Error>("repoData", () =>
-    fetchUserData()
-  );
+  const { data } = useQuery<IData[], Error>("repoData", () => fetchUserData());
 
   const [columnDefs] = useState<(ColDef | ColGroupDef)[]>(ColumnDefinition());
-
-  const onGridReady = useCallback((params: GridReadyEvent) => {
-    params.api.sizeColumnsToFit();
-  }, []);
 
   const defaultColDef = useMemo<ColDef>(() => {
     return {
@@ -77,19 +75,60 @@ const Table = () => {
     };
   }, []);
 
+  const pinnedTopRowData = useMemo<any[]>(() => {
+    return [];
+  }, []);
+
+  const onGridReady = useCallback((params: GridReadyEvent) => {
+    params.api.sizeColumnsToFit();
+    params.api.setPinnedTopRowData([]);
+  }, []);
+
+  useEffect(() => {
+    if (isDOMReady) {
+      const gridDiv = document.querySelector(
+        ".ag-theme-alpine-dark"
+      ) as HTMLElement;
+      if (gridDiv) {
+        const gridBody = gridDiv.querySelector(".ag-body") as HTMLElement;
+        if (gridBody) {
+          // const verticalScroll = gridDiv.querySelector(
+          //   ".ag-virtual-list-viewport"
+          // ) as HTMLElement;
+          gridBody.style.width = "calc(100% + 17px)";
+        }
+
+        // const gridBody = gridDiv.querySelector(".ag-body") as HTMLElement;
+
+        // gridBody.style.height = "calc(100% - 17px)"; // Điều chỉnh độ cao của bảng
+        // verticalScroll.style.height = "100%";
+      } else {
+        console.error("Không tìm thấy phần tử có class .ag-theme-alpine.");
+      }
+    } else {
+      setIsDOMReady(true);
+    }
+  }, [isDOMReady]);
+
+  useEffect(() => {
+    if (data) setRowData(getDataApi(data));
+  }, [data]);
+
   return (
-    <div style={containerStyle}>
-      <div style={{ height: "100vw", boxSizing: "border-box" }}>
-        <div style={gridStyle} className="ag-theme-alpine">
-          <AgGridReact
-            rowData={data !== undefined ? getDataApi(data) : []}
-            columnDefs={columnDefs}
-            headerHeight={45}
-            defaultColDef={defaultColDef}
-            gridOptions={gridOptions}
-            onGridReady={onGridReady}
-          />
-        </div>
+    <div style={{ height: "100vw", boxSizing: "border-box" }}>
+      <div style={gridStyle} className="ag-theme-alpine-dark">
+        <AgGridReact
+          rowData={rowData}
+          columnDefs={columnDefs}
+          headerHeight={45}
+          defaultColDef={defaultColDef}
+          gridOptions={gridOptions}
+          onGridReady={onGridReady}
+          animateRows={true}
+          pinnedTopRowData={pinnedTopRowData}
+          rowMultiSelectWithClick={true}
+          rowSelection={"multiple"}
+        />
       </div>
     </div>
   );
@@ -99,56 +138,14 @@ export default Table;
 
 export function CustomLoadingCellRenderer(
   props: ILoadingCellRendererParams & { loadingMessage: string }
-)  {
+) {
   return (
     <div
       className="ag-custom-loading-cell"
-      style={{ paddingLeft: '10px', lineHeight: '25px' }}
+      style={{ paddingLeft: "10px", lineHeight: "25px" }}
     >
-      <i className="fas fa-spinner fa-pulse"></i>{' '}
+      <i className="fas fa-spinner fa-pulse"></i>{" "}
       <span> {props.loadingMessage}</span>
     </div>
   );
 }
-// const getServerSideDatasource: (server: any) => IServerSideDatasource = (
-//   server: any
-// ) => {
-//   return {
-//     getRows: (params) => {
-//       // adding delay to simulate real server call
-//       setTimeout(() => {
-//         const response = server.getResponse(params.request);
-//         if (response.success) {
-//           // call the success callback
-//           params.success({
-//             rowData: getDataApi(response.rows),
-//             rowCount: response.lastRow,
-//           });
-//         } else {
-//           // inform the grid request failed
-//           params.fail();
-//         }
-//       }, 2000);
-//     },
-//   };
-// };
-
-// const getFakeServer: (allData: any[]) => any = (allData: any[]) => {
-//   return {
-//     getResponse: (request: IServerSideGetRowsRequest) => {
-//       console.log(
-//         'asking for rows: ' + request.startRow + ' to ' + request.endRow
-//       );
-//       // take a slice of the total rows
-//       const rowsThisPage = allData.slice(request.startRow, request.endRow);
-//       // if on or after the last page, work out the last row.
-//       const lastRow =
-//         allData.length <= (request.endRow || 0) ? allData.length : -1;
-//       return {
-//         success: true,
-//         rows: rowsThisPage,
-//         lastRow: lastRow,
-//       };
-//     },
-//   };
-// };
