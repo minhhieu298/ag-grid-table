@@ -2,8 +2,209 @@
   box-sizing: border-box;
   padding: 0 0 0 0;
   margin: 0;
+  font-weight: 500;
+  font-size: 8pt;
+}
+.ag-header-cell {
+  padding: 0 5px;
+}
+.custom-header {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  text-align: center;
 }
 
+.custom-header .custom-header-label {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-header .custom-header-icon {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column-reverse;
+}
+
+.custom-header .custom-header-icon .icon-active {
+  display: block;
+  font-size: 9pt;
+}
+
+.custom-header .custom-header-icon .icon-inactive {
+  display: none;
+}
+
+.custom-header .custom {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.custom-header .custom span {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.custom-header .custom span .custom-header-icon {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+}
+
+.custom-header .custom > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 20px;
+}
+
+.custom-header .custom > div:hover {
+  background-color: red;
+}
+
+.ag-header-cell[col-id="16"] {
+  padding: 0;
+}
+
+.ag-header-group-cell {
+  justify-content: center;
+}
+
+/* .ag-row {
+  background-color: transparent !important;
+} */
+
+.ag-row.ag-row-level-0 > div {
+  padding: 0 5px;
+  text-align: right;
+  /* border-right: 1px solid #858585;
+  border-bottom: 1px solid #858585; */
+}
+
+.ag-row.ag-row-level-0 > div input {
+  vertical-align: text-bottom;
+}
+
+.ag-row.ag-row-level-0 > div:first-child{
+  /* display: inline-block; */
+  text-align: left !important;
+}
+
+.ag-row.ag-row-level-0 > div:first-child span {
+  margin-left: 1px;
+}
+
+.ag-header-row.ag-header-row-column > div, .ag-header-group-cell.ag-header-group-cell-with-group {
+  border-right: 1px solid #858585;
+}
+
+.ag-cell-text-white {
+  color: #dfe1e3;
+  font-size: 12px;
+}
+
+.ag-cell-text-violet {
+  color: #f23aff;
+  font-size: 12px;
+}
+
+.ag-cell-text-blue {
+  color: #66ccff;
+  font-size: 12px;
+}
+
+.ag-cell-text-yellow {
+  color: #fdff12;
+  font-size: 12px;
+}
+
+.ag-cell-text-green {
+  color: #0bdf39;
+  font-size: 12px;
+}
+
+.ag-cell-text-red {
+  color: #ff0017;
+  font-size: 12px;
+}
+
+.ag-cell-text-black {
+  color: #000;
+  font-size: 12px;
+} */
+
+.ag-cell-text-white {
+  color: #dfe1e3;
+  font-size: 12px;
+}
+
+.ag-cell-text-violet {
+  color: #f23aff;
+  font-size: 12px;
+}
+
+.ag-cell-text-blue {
+  color: #66ccff;
+  font-size: 12px;
+}
+
+.ag-cell-text-yellow {
+  color: #fdff12;
+  font-size: 12px;
+}
+
+.ag-cell-text-green {
+  color: #0bdf39;
+  font-size: 12px;
+}
+
+.ag-cell-text-red {
+  color: #ff0017;
+  font-size: 12px;
+}
+
+.ag-cell-text-black {
+  color: #000;
+  font-size: 12px;
+}
+
+.ag-ltr .ag-cell-focus:not(.ag-cell-range-selected):focus-within,
+.ag-ltr .ag-context-menu-open .ag-cell-focus:not(.ag-cell-range-selected),
+.ag-ltr .ag-full-width-row.ag-row-focus:focus .ag-cell-wrapper.ag-row-group,
+.ag-ltr .ag-cell-range-single-cell,
+.ag-ltr .ag-cell-range-single-cell.ag-cell-range-handle,
+.ag-rtl .ag-cell-focus:not(.ag-cell-range-selected):focus-within,
+.ag-rtl .ag-context-menu-open .ag-cell-focus:not(.ag-cell-range-selected),
+.ag-rtl .ag-full-width-row.ag-row-focus:focus .ag-cell-wrapper.ag-row-group,
+.ag-rtl .ag-cell-range-single-cell,
+.ag-rtl .ag-cell-range-single-cell.ag-cell-range-handle {
+  outline: none;
+  border: none;
+}
+
+/* 
 :root {
   --color-classic-primary: #020210;
 }
@@ -199,37 +400,5 @@ span.ag-icon.ag-icon-asc {
   }
 }
 
-.ag-cell-text-white {
-  color: #dfe1e3;
-  font-size: 12px;
-}
 
-.ag-cell-text-violet {
-  color: #f23aff;
-  font-size: 12px;
-}
-
-.ag-cell-text-blue {
-  color: #66ccff;
-  font-size: 12px;
-}
-
-.ag-cell-text-yellow {
-  color: #fdff12;
-  font-size: 12px;
-}
-
-.ag-cell-text-green {
-  color: #0bdf39;
-  font-size: 12px;
-}
-
-.ag-cell-text-red {
-  color: #ff0017;
-  font-size: 12px;
-}
-
-.ag-cell-text-black {
-  color: #000;
-  font-size: 12px;
-}
+ */

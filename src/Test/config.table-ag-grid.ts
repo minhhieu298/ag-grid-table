@@ -1,11 +1,5 @@
 import { ColDef, ColGroupDef, GridOptions } from "ag-grid-community";
-import {
-  CellRenderDefault,
-  CellRenderSan,
-  CellRenderTC,
-  CellRenderTemplate,
-  CellRenderTran,
-} from "./CustomTemplate";
+import { getColorText, valueGetter } from "./getApi";
 
 const check = {
   MKL4: false,
@@ -13,7 +7,7 @@ const check = {
   Avg: false,
 };
 
-export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
+export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
   return [
     {
       headerName: "Mã",
@@ -21,7 +15,23 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
       colId: "1",
       suppressSizeToFit: true,
       width: 90,
-      cellRenderer: CellRenderTemplate,
+      cellStyle: (params) => {
+        return {
+          color: getColorText(
+            params.data.Gia,
+            params.data.TC,
+            params.data.Tran,
+            params.data.San
+          ),
+          background: getColorText(
+            params.data.Gia,
+            params.data.TC,
+            params.data.Tran,
+            params.data.San
+          ),
+        };
+      },
+      rowDrag: true,
     },
     {
       headerName: "TC",
@@ -29,7 +39,9 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
       colId: "2",
       suppressSizeToFit: true,
       maxWidth: 50,
-      cellRenderer: CellRenderTC,
+      cellStyle: () => {
+        return { color: "#fdff12" };
+      },
     },
     {
       headerName: "Trần",
@@ -37,7 +49,9 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
       colId: "3",
       suppressSizeToFit: true,
       maxWidth: 50,
-      cellRenderer: CellRenderTran,
+      cellStyle: () => {
+        return { color: "#f23aff" };
+      },
     },
     {
       headerName: "Sàn",
@@ -45,7 +59,9 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
       colId: "4",
       suppressSizeToFit: true,
       maxWidth: 50,
-      cellRenderer: CellRenderSan,
+      cellStyle: () => {
+        return { color: "#66ccff" };
+      },
     },
     {
       headerName: "Mua",
@@ -57,7 +73,7 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           field: "MKL4",
           colId: "25",
           hide: check.MKL4,
-          cellRenderer: CellRenderTemplate,
+          valueGetter: (params) => valueGetter(Number(params.data.MKL4)),
         },
         {
           headerName: "G3",
@@ -65,7 +81,20 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           colId: "26",
           suppressSizeToFit: true,
           maxWidth: 50,
-          cellRenderer: CellRenderTemplate,
+          cellStyle: (params) => {
+            return {
+              color: getColorText(
+                params.data.MG3,
+                params.data.TC,
+                params.data.Tran,
+                params.data.San
+              ),
+            };
+          },
+          cellClassRules: {
+            'highlight': (params) => params.data
+          },
+          valueGetter: (params) => valueGetter(Number(params.data.MG3)),
         },
         {
           headerName: "KL3",
@@ -74,7 +103,17 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           suppressSizeToFit: true,
           maxWidth: 100,
           width: 80,
-          cellRenderer: CellRenderTemplate,
+          cellStyle: (params) => {
+            return {
+              color: getColorText(
+                params.data.MG3,
+                params.data.TC,
+                params.data.Tran,
+                params.data.San
+              ),
+            };
+          },
+          valueGetter: (params) => valueGetter(Number(params.data.MKL3)),
         },
         {
           headerName: "G2",
@@ -82,7 +121,17 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           colId: "28",
           suppressSizeToFit: true,
           maxWidth: 50,
-          cellRenderer: CellRenderTemplate,
+          cellStyle: (params) => {
+            return {
+              color: getColorText(
+                params.data.MG2,
+                params.data.TC,
+                params.data.Tran,
+                params.data.San
+              ),
+            };
+          },
+          valueGetter: (params) => valueGetter(Number(params.data.MG2)),
         },
         {
           headerName: "KL2",
@@ -91,7 +140,17 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           suppressSizeToFit: true,
           maxWidth: 100,
           width: 70,
-          cellRenderer: CellRenderTemplate,
+          cellStyle: (params) => {
+            return {
+              color: getColorText(
+                params.data.MG2,
+                params.data.TC,
+                params.data.Tran,
+                params.data.San
+              ),
+            };
+          },
+          valueGetter: (params) => valueGetter(Number(params.data.MKL2)),
         },
         {
           headerName: "G1",
@@ -99,7 +158,17 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           colId: "29",
           suppressSizeToFit: true,
           maxWidth: 50,
-          cellRenderer: CellRenderTemplate,
+          cellStyle: (params) => {
+            return {
+              color: getColorText(
+                params.data.MG1,
+                params.data.TC,
+                params.data.Tran,
+                params.data.San
+              ),
+            };
+          },
+          valueGetter: (params) => valueGetter(Number(params.data.MG1)),
         },
         {
           headerName: "KL1",
@@ -108,7 +177,17 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           suppressSizeToFit: true,
           maxWidth: 100,
           width: 70,
-          cellRenderer: CellRenderTemplate,
+          cellStyle: (params) => {
+            return {
+              color: getColorText(
+                params.data.MKL1,
+                params.data.TC,
+                params.data.Tran,
+                params.data.San
+              ),
+            };
+          },
+          valueGetter: (params) => valueGetter(Number(params.data.MKL1)),
         },
       ],
     },
@@ -120,7 +199,19 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           headerName: "Giá",
           field: "Gia",
           colId: "14",
-          cellRenderer: CellRenderTemplate,
+          cellStyle: (params) => {
+            return {
+              color: getColorText(
+                params.data.Gia,
+                params.data.TC,
+                params.data.Tran,
+                params.data.San
+              ),
+            };
+          },
+          valueGetter: (params) => valueGetter(Number(params.data.Gia)),
+          maxWidth: 50,
+          suppressSizeToFit: true,
         },
         {
           headerName: "KL",
@@ -129,27 +220,34 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           suppressSizeToFit: true,
           maxWidth: 100,
           width: 80,
-          cellRenderer: CellRenderTemplate,
+          cellStyle: (params) => {
+            return {
+              color: getColorText(
+                params.data.Gia,
+                params.data.TC,
+                params.data.Tran,
+                params.data.San
+              ),
+            };
+          },
+          valueGetter: (params) => valueGetter(Number(params.data.KL)),
         },
         {
           colId: "16",
-          field: "PD",
+          field: str,
           suppressSizeToFit: true,
           maxWidth: 60,
-          cellRenderer: CellRenderTemplate,
-          headerComponentParams: {
-            template: `
-              <div class="ag-cell-label-container" role="presentation">
-                <span class="icon-right" style="font-size: 12pt; position: relative;cursor: pointer"><i class="fa fa-caret-right" aria-hidden="true"></i></span>
-                <div ref="eLabel" class="ag-header-cell-label" role="presentation" style="position: relative">
-                  <span style="font-size: 10pt; position: relative; top: -1px">+/-</span>
-                  <span ref="eSortAsc" class="ag-header-icon ag-sort-ascending-icon ag-hidden" style="bottom: -6px"><i class="fa fa-sort-asc" aria-hidden="true"></i></span>
-                  <span ref="eSortDesc" class="ag-header-icon ag-sort-descending-icon ag-hidden" style="bottom: 0"><i class="fa fa-sort-desc" aria-hidden="true"></i></span>
-                </div>
-                <span class="icon-left" style="font-size: 12pt; position: relative; cursor: pointer"><i class="fa fa-caret-left" aria-hidden="true"></i></span>
-              </div>
-            `,
+          cellStyle: (params) => {
+            return {
+              color: getColorText(
+                params.data.Gia,
+                params.data.TC,
+                params.data.Tran,
+                params.data.San
+              ),
+            };
           },
+          valueGetter: (params) => valueGetter(Number(params.data.Gia)),
         },
       ],
     },
@@ -163,7 +261,17 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           colId: "17",
           suppressSizeToFit: true,
           maxWidth: 50,
-          cellRenderer: CellRenderTemplate,
+          cellStyle: (params) => {
+            return {
+              color: getColorText(
+                params.data.BG1,
+                params.data.TC,
+                params.data.Tran,
+                params.data.San
+              ),
+            };
+          },
+          valueGetter: (params) => valueGetter(Number(params.data.BG1)),
         },
         {
           headerName: "KL1",
@@ -172,7 +280,17 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           suppressSizeToFit: true,
           maxWidth: 100,
           width: 70,
-          cellRenderer: CellRenderTemplate,
+          cellStyle: (params) => {
+            return {
+              color: getColorText(
+                params.data.BG1,
+                params.data.TC,
+                params.data.Tran,
+                params.data.San
+              ),
+            };
+          },
+          valueGetter: (params) => valueGetter(Number(params.data.BKL1)),
         },
         {
           headerName: "G2",
@@ -180,7 +298,17 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           colId: "19",
           suppressSizeToFit: true,
           maxWidth: 50,
-          cellRenderer: CellRenderTemplate,
+          cellStyle: (params) => {
+            return {
+              color: getColorText(
+                params.data.BG2,
+                params.data.TC,
+                params.data.Tran,
+                params.data.San
+              ),
+            };
+          },
+          valueGetter: (params) => valueGetter(Number(params.data.BG2)),
         },
         {
           headerName: "KL2",
@@ -189,7 +317,17 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           suppressSizeToFit: true,
           maxWidth: 100,
           width: 70,
-          cellRenderer: CellRenderTemplate,
+          cellStyle: (params) => {
+            return {
+              color: getColorText(
+                params.data.BG2,
+                params.data.TC,
+                params.data.Tran,
+                params.data.San
+              ),
+            };
+          },
+          valueGetter: (params) => valueGetter(Number(params.data.BKL2)),
         },
         {
           headerName: "G3",
@@ -197,7 +335,17 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           colId: "21",
           suppressSizeToFit: true,
           maxWidth: 50,
-          cellRenderer: CellRenderTemplate,
+          cellStyle: (params) => {
+            return {
+              color: getColorText(
+                params.data.BG3,
+                params.data.TC,
+                params.data.Tran,
+                params.data.San
+              ),
+            };
+          },
+          valueGetter: (params) => valueGetter(Number(params.data.BG3)),
         },
         {
           headerName: "KL3",
@@ -206,7 +354,17 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           suppressSizeToFit: true,
           maxWidth: 100,
           width: 80,
-          cellRenderer: CellRenderTemplate,
+          cellStyle: (params) => {
+            return {
+              color: getColorText(
+                params.data.BG3,
+                params.data.TC,
+                params.data.Tran,
+                params.data.San
+              ),
+            };
+          },
+          valueGetter: (params) => valueGetter(Number(params.data.BKL3)),
         },
         {
           headerName: "KL4",
@@ -216,7 +374,10 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
           suppressSizeToFit: true,
           maxWidth: 35,
           width: 35,
-          cellRenderer: CellRenderTemplate,
+          // cellStyle: (params) => {
+          //   return { color: getColorText(params) };
+          // },
+          valueGetter: (params) => valueGetter(Number(params.data.BKL4)),
         },
       ],
     },
@@ -227,78 +388,110 @@ export const ColumnDefinition = (): (ColDef | ColGroupDef)[] => {
       suppressSizeToFit: true,
       maxWidth: 80,
       width: 80,
-      cellRenderer: CellRenderDefault,
+      valueGetter: (params) => valueGetter(Number(params.data.TotalKL)),
     },
     {
       headerName: "Mở cửa",
       field: "Open",
       colId: "9",
       hide: false,
-      cellRenderer: CellRenderTemplate,
       suppressSizeToFit: true,
       maxWidth: 50,
+      cellStyle: (params) => {
+        return {
+          color: getColorText(
+            params.data.Open,
+            params.data.TC,
+            params.data.Tran,
+            params.data.San
+          ),
+        };
+      },
+      valueGetter: (params) => valueGetter(Number(params.data.Open)),
     },
     {
       headerName: "Cao nhất",
       field: "Max",
       colId: "10",
       hide: false,
-      cellRenderer: CellRenderTemplate,
       suppressSizeToFit: true,
       maxWidth: 50,
+      cellStyle: (params) => {
+        return {
+          color: getColorText(
+            params.data.Max,
+            params.data.TC,
+            params.data.Tran,
+            params.data.San
+          ),
+        };
+      },
+      valueGetter: (params) => valueGetter(Number(params.data.Max)),
     },
     {
       headerName: "Thấp nhất",
       field: "Min",
       colId: "23",
       hide: false,
-      cellRenderer: CellRenderTemplate,
       suppressSizeToFit: true,
       maxWidth: 50,
+      cellStyle: (params) => {
+        return {
+          color: getColorText(
+            params.data.Min,
+            params.data.TC,
+            params.data.Tran,
+            params.data.San
+          ),
+        };
+      },
+      valueGetter: (params) => valueGetter(Number(params.data.Min)),
     },
     {
       headerName: "Trung bình",
       field: "Avg",
       colId: "24",
       hide: check.Avg,
-      cellRenderer: CellRenderTemplate,
       suppressSizeToFit: true,
       maxWidth: 50,
+      // cellStyle: (params) => {
+      //   return { color: getColorText(params) };
+      // },
+      valueGetter: (params) => valueGetter(Number(params.data.Avg)),
     },
     {
       headerName: "NN mua",
       field: "NNMua",
       colId: "11",
       hide: false,
-      cellRenderer: CellRenderDefault,
       suppressSizeToFit: true,
       maxWidth: 60,
+      valueGetter: (params) => valueGetter(Number(params.data.NNMua)),
     },
     {
       headerName: "NN bán",
       field: "NNBan",
       colId: "12",
       hide: false,
-      cellRenderer: CellRenderDefault,
       suppressSizeToFit: true,
       maxWidth: 60,
+      valueGetter: (params) => valueGetter(Number(params.data.MNNBan)),
     },
     {
       headerName: "Room còn lại",
       field: "Room",
       colId: "13",
       hide: false,
-      cellRenderer: CellRenderDefault,
       suppressSizeToFit: true,
       maxWidth: 100,
+      valueGetter: (params) => valueGetter(Number(params.data.Room)),
     },
   ];
 };
 
 export const gridOptions: GridOptions = {
-  // domLayout: "autoHeight",
-  getRowId: (data) => {
-    return data.data.id;
+  getRowId: (params) => {
+    return params.data.id;
   },
   rowBuffer: 0,
   suppressContextMenu: true,
