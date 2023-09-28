@@ -1,5 +1,6 @@
 import { ColDef, ColGroupDef, GridOptions } from "ag-grid-community";
 import { getColorText, valueGetter } from "./getApi";
+import { CustomHeader } from "./CustomTemplate";
 
 const check = {
   MKL4: false,
@@ -18,12 +19,6 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
       cellStyle: (params) => {
         return {
           color: getColorText(
-            params.data.Gia,
-            params.data.TC,
-            params.data.Tran,
-            params.data.San
-          ),
-          background: getColorText(
             params.data.Gia,
             params.data.TC,
             params.data.Tran,
@@ -92,7 +87,7 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
             };
           },
           cellClassRules: {
-            'highlight': (params) => params.data
+            highlight: (params) => params.data,
           },
           valueGetter: (params) => valueGetter(Number(params.data.MG3)),
         },
@@ -247,7 +242,15 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
               ),
             };
           },
-          valueGetter: (params) => valueGetter(Number(params.data.Gia)),
+          valueGetter: (params) => {
+            if (str === "PD") return valueGetter(Number(params.data.PD));
+            else {
+              return Number(params.data.Gia) > 0
+                ? Number(params.data.Percent) + "%"
+                : "";
+            }
+          },
+          headerComponent: CustomHeader,
         },
       ],
     },
@@ -475,7 +478,7 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
       hide: false,
       suppressSizeToFit: true,
       maxWidth: 60,
-      valueGetter: (params) => valueGetter(Number(params.data.MNNBan)),
+      valueGetter: (params) => valueGetter(Number(params.data.NNBan)),
     },
     {
       headerName: "Room còn lại",

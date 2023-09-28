@@ -114,7 +114,7 @@ export function getColorText(
   } else if (Number(price) === Number(san)) {
     return "#66ccff";
   } else if (Number(price) === Number(tran)) {
-    return "ag-cell-text-violet";
+    return "#f23aff";
   } else if (Number(price) === Number(tc)) {
     return "#fdff12";
   } else if (Number(price) > Number(tc)) {
@@ -135,7 +135,7 @@ export function formatNumber(num: string): string {
 }
 
 export function valueGetter(num: number): string | number {
-  return num > 0 ? formatNumber(num.toString()) : "";
+  return num !== 0 ? formatNumber(num.toString()) : "";
 }
 export function getDataSocket(event: MessageEvent) {
   const jsonData: ISocketData = JSON.parse(event.data);
