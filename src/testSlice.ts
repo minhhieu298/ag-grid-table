@@ -8,11 +8,21 @@ export const fetchData = createAsyncThunk<IData[]>("fetch_data", async () => {
   return response.json();
 });
 
+export const fetchCate = createAsyncThunk("fetch_cate", async () => {
+  const response = await fetch(
+    `https://eztrade.fpts.com.vn/api/ApiData/get_cache_stockinfo`
+  );
+  const convert = await response.json();
+  const res = JSON.parse(convert);
+  return res;
+});
+
 const reducer = createSlice({
   name: "change",
   initialState: {
     title: "PD",
     table: [] as any,
+    category: [] as any,
     loading: false,
   },
   reducers: {
@@ -28,6 +38,13 @@ const reducer = createSlice({
       .addCase(fetchData.fulfilled, (state, action) => {
         state.loading = true;
         state.table = action.payload;
+      })
+      .addCase(fetchCate.pending, (state) => {
+        state.loading = false;
+      })
+      .addCase(fetchCate.fulfilled, (state, action) => {
+        state.loading = true;
+        state.category = action.payload;
       });
   },
 });

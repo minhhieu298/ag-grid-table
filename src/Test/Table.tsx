@@ -1,13 +1,17 @@
 import {
   ColDef,
+  FirstDataRenderedEvent,
+  GridApi,
   GridReadyEvent,
+  GridSizeChangedEvent,
   ILoadingCellRendererParams,
+  SideBarDef,
 } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-enterprise";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
-import { useMemo, useState, useCallback, useEffect } from "react";
+import { useMemo, useState, useCallback, useEffect, useRef } from "react";
 import {
   Data,
   generateRandomData,
@@ -16,79 +20,91 @@ import {
   updateImmutableObject,
 } from "./getApi";
 import { ColumnDefinition, gridOptions } from "./config.table-ag-grid";
-import { CustomHeader } from "./CustomTemplate";
+import { CustomHeader, CustomToolTip } from "./CustomTemplate";
 import { useAppDispatch, useAppSelector } from "../store";
-import { fetchData } from "../testSlice";
+import { fetchCate, fetchData } from "../testSlice";
 
 export interface IData {
   RowID: string;
   Info: string[][];
 }
 
+export interface IColumns {
+  Ma: string;
+  TC: string;
+  Tran: string;
+  San: string;
+  MKL4: string;
+  MG3: string;
+  MKL3: string;
+  MG2: string;
+  MKL2: string;
+  MG1: string;
+  MKL1: string;
+  Gia: string;
+  KL: string;
+  PD: string; //price difference
+  Percent: number; //percent,
+  BG1: string;
+  BKL1: string;
+  BG2: string;
+  BKL2: string;
+  BG3: string;
+  BKL3: string;
+  BKL4: string;
+  TotalKL: string;
+  Open: string;
+  Max: string;
+  Min: string;
+  Avg: string;
+  NNMua: string;
+  NNBan: string;
+  Room: string;
+}
+
+export const INDEX = {
+  MKL4: false,
+  BKL4: false,
+  Open: false,
+  Max: false,
+  Min: false,
+  Avg: false,
+  NNMua: false,
+  NNBan: false,
+  Room: false,
+};
+
+
 const Table = () => {
-  // const containerStyle = useMemo(() => ({ width: "100%", height: "100%" }), []);
-  const [isDOMReady, setIsDOMReady] = useState(false);
+  const containerStyle = useMemo(() => ({ width: "100%", height: "100%" }), []);
+  const gridRef = useRef<AgGridReact<IColumns>>(null);
   const gridStyle = useMemo(() => ({ height: "100%", width: "100%" }), []);
   const name = useAppSelector((state) => state.title);
   const [rowData, setRowData] = useState<any[]>([]);
-  const { table } = useAppSelector((state) => state);
+  const { table, category } = useAppSelector((state) => state);
   const dipatch = useAppDispatch();
   const [hsx, setHSX] = useState<any>([]);
-
-  // const rowData = useMemo(() => {
-  //   if (Object.keys(hsx).length !== 0) {
-  //     const result = table.map((item1: any) => {
-  //       const item2 = hsx.find((item2: any) => item2.row === item1.row);
-
-  //       if (item2) {
-  //         // Tìm thấy phần tử tương ứng trong arr_2
-  //         // Trả về một đối tượng mới kết hợp giá trị từ cả hai arr_1 và arr_2
-  //         return {
-  //           row: item1.row,
-  //           infor: item2.infor,
-  //         };
-  //       } else {
-  //         // Không tìm thấy phần tử tương ứng trong arr_2
-  //         // Trả về một đối tượng mới sử dụng giá trị từ arr_1
-  //         return {
-  //           row: item1.row,
-  //           infor: item1.infor,
-  //         };
-  //       }
-  //     });
-  //     return result;
-  //   }
-  //   return table;
-  // }, [table, hsx]);
-  // console.log(rowData);
+  const [input, setInput] = useState(INDEX);
 
   const defaultColDef = useMemo<ColDef>(() => {
     return {
       resizable: false,
       sortable: true,
-      maxWidth: 1200,
       wrapHeaderText: true,
-      // headerComponentParams: {
-      //   template: `
-      //     <div class="ag-cell-label-container" role="presentation">
-      //       <div ref="eLabel" class="ag-header-cell-label" role="presentation">
-      //         <span ref="eSortOrder" class="ag-header-icon ag-sort-order ag-hidden"></span>
-      //         <span ref="eSortAsc" class="ag-header-icon ag-sort-ascending-icon ag-hidden"><i class="fa fa-sort-asc" aria-hidden="true"></i></span>
-      //         <span ref="eSortDesc" class="ag-header-icon ag-sort-descending-icon ag-hidden"><i class="fa fa-sort-desc" aria-hidden="true"></i></span>
-      //         <span ref="eSortMixed" class="ag-header-icon ag-sort-mixed-icon ag-hidden"></span>
-      //         <span ref="eSortNone" class="ag-header-icon ag-sort-none-icon ag-hidden"></span>
-      //         <span ref="eText" class="ag-header-cell-text" role="columnheader"></span>
-      //         <span ref="eFilter" class="ag-header-icon ag-filter-icon"></span>
-      //       </div>
-      //     </div>
-      //   `,
-      // },
+      minWidth: 50,
+      editable: true,
+      tooltipComponent: CustomToolTip,
+      suppressAutoSize: true,
+      enableValue: true,
+      // allow every column to be grouped
+      enableRowGroup: true,
+      // allow every column to be pivoted
+      enablePivot: true,
     };
   }, []);
 
   const onGridReady = useCallback((params: GridReadyEvent) => {
     params.api.sizeColumnsToFit();
-    params.api.setPinnedTopRowData([]);
   }, []);
 
   const arr = useMemo(() => {
@@ -112,49 +128,42 @@ const Table = () => {
     setHSX(generateRandomData());
   };
 
-  const onCellValueChanged = (params) => {
-    console.log(params);
+  const onFirstDataRendered = useCallback((params: FirstDataRenderedEvent) => {
+  }, []);
 
-    if (params.oldValue !== params.newValue) {
-      const column = params.column.colDef.field;
-      params.column.colDef.cellStyle = { "background-color": "cyan" };
-      params.api.refreshCells({
-        force: true,
-        columns: [column],
-        rowNodes: [params.node],
-      });
-    }
-    params.api.refreshCells();
+  const onGridSizeChanged = useCallback((params: GridSizeChangedEvent) => {
+  }, []);
+
+  const handleChange = (e: any) => {
+    const { name, checked } = e.target;
+    setInput({ ...input, [name]: checked });
   };
-
-  useEffect(() => {
-    if (isDOMReady) {
-      const gridDiv = document.querySelector(
-        ".ag-theme-alpine-dark"
-      ) as HTMLElement;
-      if (gridDiv) {
-        const gridBody = gridDiv.querySelector(".ag-body") as HTMLElement;
-        const floatingTop = gridDiv.querySelector(
-          ".ag-floating-top"
-        ) as HTMLElement;
-        if (gridBody) {
-          // const verticalScroll = gridDiv.querySelector(
-          //   ".ag-virtual-list-viewport"
-          // ) as HTMLElement;
-          gridBody.style.width = "calc(100% + 17px)";
-          floatingTop.style.overflowY = "auto";
-          floatingTop.style.borderRight = "1px solid #858585";
-        }
-      } else {
-        console.error("Không tìm thấy phần tử có class .ag-theme-alpine.");
-      }
-    } else {
-      setIsDOMReady(true);
-    }
-  }, [isDOMReady]);
+  const sideBar = useMemo<
+    SideBarDef | string | string[] | boolean | null
+  >(() => {
+    return {
+      toolPanels: [
+        {
+          id: "columns",
+          labelDefault: "Columns",
+          labelKey: "columns",
+          iconKey: "columns",
+          toolPanel: "agColumnsToolPanel",
+          toolPanelParams: {
+            // tool panel columns won't move when columns are reordered in the grid
+            suppressSyncLayoutWithGrid: true,
+            // prevents columns being reordered from the columns tool panel
+            suppressColumnMove: true,
+          },
+        },
+      ],
+      defaultToolPanel: "columns",
+    };
+  }, []);
 
   useEffect(() => {
     dipatch(fetchData());
+    dipatch(fetchCate());
   }, [dipatch]);
 
   useEffect(() => {
@@ -170,7 +179,7 @@ const Table = () => {
     socketHNX.onopen = () => {
       //console.log("WebSocket connection established.");
     };
-    socketHSX.onmessage = (event) => {
+    socketHSX.onmessage = () => {
       // setHSX(getDataSocket(event));
     };
 
@@ -193,25 +202,91 @@ const Table = () => {
     setRowData(table);
   }, [table]);
   return (
-    <div style={{ height: "100vw", boxSizing: "border-box" }}>
-      <button onClick={() => handleClick()}>click</button>
-      <div style={gridStyle} className="ag-theme-alpine-dark">
-        <AgGridReact
-          rowData={arr}
-          columnDefs={ColumnDefinition(name)}
-          headerHeight={40}
-          defaultColDef={defaultColDef}
-          gridOptions={gridOptions}
-          onGridReady={onGridReady}
-          animateRows={true}
-          // pinnedTopRowData={pinnedTopRowData}
-          rowMultiSelectWithClick={true}
-          rowSelection={"multiple"}
-          components={components}
-          rowDragManaged={true}
-          rowDragMultiRow={true}
-          onCellValueChanged={onCellValueChanged}
-        />
+    <div style={containerStyle}>
+      <div
+        id="grid-wrapper"
+        style={{ height: "100vw", boxSizing: "border-box" }}
+      >
+        <button onClick={() => handleClick()}>click</button>
+        <div style={{ display: "flex", fontSize: "20px" }}>
+          <input
+            type="checkbox"
+            onChange={handleChange}
+            checked={input.MKL4}
+            name="MKL4"
+          />
+          MKL4
+          <input
+            type="checkbox"
+            onChange={handleChange}
+            checked={input.BKL4}
+            name="BKL4"
+          />
+          BKL4
+          <input
+            type="checkbox"
+            onChange={handleChange}
+            checked={input.Max}
+            name="Max"
+          />
+          Max
+          <input
+            type="checkbox"
+            onChange={handleChange}
+            checked={input.Min}
+            name="Min"
+          />
+          Min
+          <input
+            type="checkbox"
+            onChange={handleChange}
+            checked={input.Open}
+            name="Open"
+          />
+          Open
+          <input
+            type="checkbox"
+            onChange={handleChange}
+            checked={input.NNBan}
+            name="NNBan"
+          />
+          NNBan
+          <input
+            type="checkbox"
+            onChange={handleChange}
+            checked={input.NNMua}
+            name="NNMua"
+          />
+          NNMua
+          <input
+            type="checkbox"
+            onChange={handleChange}
+            checked={input.Room}
+            name="Room"
+          />
+          Room
+        </div>
+        <div style={gridStyle} className="ag-theme-alpine-dark">
+          <AgGridReact
+            ref={gridRef}
+            rowData={arr}
+            columnDefs={ColumnDefinition(name)}
+            headerHeight={40}
+            defaultColDef={defaultColDef}
+            gridOptions={gridOptions}
+            onGridReady={onGridReady}
+            animateRows={true}
+            // onFirstDataRendered={onFirstDataRendered}
+            // onGridSizeChanged={onGridSizeChanged}
+            rowMultiSelectWithClick={true}
+            rowSelection={"multiple"}
+            components={components}
+            rowDragManaged={true}
+            tooltipShowDelay={0}
+            rowDragMultiRow={true}
+            sideBar={sideBar}
+          />
+        </div>
       </div>
     </div>
   );

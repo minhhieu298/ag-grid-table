@@ -1,4 +1,4 @@
-import { IHeaderParams } from "ag-grid-community";
+import { IHeaderParams, ITooltipParams } from "ag-grid-community";
 import { formatNumber, getColorText } from "./getApi";
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "../store";
@@ -159,5 +159,14 @@ export const CustomHeader = (props: ICustomHeaderParams) => {
         </div>
       )}
     </>
+  );
+};
+
+export const CustomToolTip = (props: ITooltipParams & { color: string }) => {
+  console.log(props);
+  return (
+    <div className="custom-tooltip" style={{ color: props.color }}>
+      dsadasd
+    </div>
   );
 };

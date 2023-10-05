@@ -1,12 +1,7 @@
 import { ColDef, ColGroupDef, GridOptions } from "ag-grid-community";
 import { getColorText, valueGetter } from "./getApi";
-import { CustomHeader } from "./CustomTemplate";
-
-const check = {
-  MKL4: false,
-  BKL4: false,
-  Avg: false,
-};
+import { CustomHeader, CustomToolTip } from "./CustomTemplate";
+import { INDEX } from "./Table";
 
 export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
   return [
@@ -14,8 +9,12 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
       headerName: "Mã",
       field: "Ma",
       colId: "1",
-      suppressSizeToFit: true,
+      tooltipField: "Ma",
+      maxWidth: 90,
+      minWidth: 90,
       width: 90,
+      suppressColumnsToolPanel: true,
+      tooltipComponentParams: { color: "red" },
       cellStyle: (params) => {
         return {
           color: getColorText(
@@ -32,8 +31,9 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
       headerName: "TC",
       field: "TC",
       colId: "2",
-      suppressSizeToFit: true,
       maxWidth: 50,
+      minWidth: 50,
+      width: 50,
       cellStyle: () => {
         return { color: "#fdff12" };
       },
@@ -42,8 +42,9 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
       headerName: "Trần",
       field: "Tran",
       colId: "3",
-      suppressSizeToFit: true,
       maxWidth: 50,
+      minWidth: 50,
+      width: 50,
       cellStyle: () => {
         return { color: "#f23aff" };
       },
@@ -52,8 +53,9 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
       headerName: "Sàn",
       field: "San",
       colId: "4",
-      suppressSizeToFit: true,
       maxWidth: 50,
+      minWidth: 50,
+      width: 50,
       cellStyle: () => {
         return { color: "#66ccff" };
       },
@@ -67,15 +69,13 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
           headerName: "KL4",
           field: "MKL4",
           colId: "25",
-          hide: check.MKL4,
+          hide: INDEX.MKL4,
           valueGetter: (params) => valueGetter(Number(params.data.MKL4)),
         },
         {
           headerName: "G3",
           field: "MG3",
           colId: "26",
-          suppressSizeToFit: true,
-          maxWidth: 50,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -95,9 +95,6 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
           headerName: "KL3",
           field: "MKL3",
           colId: "27",
-          suppressSizeToFit: true,
-          maxWidth: 100,
-          width: 80,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -114,8 +111,6 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
           headerName: "G2",
           field: "MG2",
           colId: "28",
-          suppressSizeToFit: true,
-          maxWidth: 50,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -132,9 +127,6 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
           headerName: "KL2",
           field: "MKL2",
           colId: "28",
-          suppressSizeToFit: true,
-          maxWidth: 100,
-          width: 70,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -151,8 +143,6 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
           headerName: "G1",
           field: "MG1",
           colId: "29",
-          suppressSizeToFit: true,
-          maxWidth: 50,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -169,9 +159,6 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
           headerName: "KL1",
           field: "MKL1",
           colId: "30",
-          suppressSizeToFit: true,
-          maxWidth: 100,
-          width: 70,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -205,16 +192,11 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
             };
           },
           valueGetter: (params) => valueGetter(Number(params.data.Gia)),
-          maxWidth: 50,
-          suppressSizeToFit: true,
         },
         {
           headerName: "KL",
           field: "KL",
           colId: "15",
-          suppressSizeToFit: true,
-          maxWidth: 100,
-          width: 80,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -230,8 +212,6 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
         {
           colId: "16",
           field: str,
-          suppressSizeToFit: true,
-          maxWidth: 60,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -262,8 +242,6 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
           headerName: "G1",
           field: "BG1",
           colId: "17",
-          suppressSizeToFit: true,
-          maxWidth: 50,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -280,9 +258,6 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
           headerName: "KL1",
           field: "BKL1",
           colId: "18",
-          suppressSizeToFit: true,
-          maxWidth: 100,
-          width: 70,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -299,8 +274,6 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
           headerName: "G2",
           field: "BG2",
           colId: "19",
-          suppressSizeToFit: true,
-          maxWidth: 50,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -317,9 +290,6 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
           headerName: "KL2",
           field: "BKL2",
           colId: "20",
-          suppressSizeToFit: true,
-          maxWidth: 100,
-          width: 70,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -336,8 +306,6 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
           headerName: "G3",
           field: "BG3",
           colId: "21",
-          suppressSizeToFit: true,
-          maxWidth: 50,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -354,9 +322,6 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
           headerName: "KL3",
           field: "BKL3",
           colId: "22",
-          suppressSizeToFit: true,
-          maxWidth: 100,
-          width: 80,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -373,13 +338,7 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
           headerName: "KL4",
           field: "BKL4",
           colId: "25",
-          hide: check.BKL4,
-          suppressSizeToFit: true,
-          maxWidth: 35,
-          width: 35,
-          // cellStyle: (params) => {
-          //   return { color: getColorText(params) };
-          // },
+          hide: INDEX.BKL4,
           valueGetter: (params) => valueGetter(Number(params.data.BKL4)),
         },
       ],
@@ -388,18 +347,20 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
       headerName: "Tổng KL",
       field: "TotalKL",
       colId: "8",
-      suppressSizeToFit: true,
-      maxWidth: 80,
       width: 80,
+      minWidth: 90,
+      maxWidth: 120,
       valueGetter: (params) => valueGetter(Number(params.data.TotalKL)),
     },
     {
       headerName: "Mở cửa",
       field: "Open",
       colId: "9",
-      hide: false,
-      suppressSizeToFit: true,
-      maxWidth: 50,
+      hide: INDEX.Open,
+      // suppressSizeToFit: true,
+      maxWidth: 60,
+      minWidth: 60,
+      width: 60,
       cellStyle: (params) => {
         return {
           color: getColorText(
@@ -416,9 +377,11 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
       headerName: "Cao nhất",
       field: "Max",
       colId: "10",
-      hide: false,
-      suppressSizeToFit: true,
-      maxWidth: 50,
+      hide: INDEX.Max,
+      // suppressSizeToFit: true,
+      maxWidth: 60,
+      minWidth: 60,
+      width: 60,
       cellStyle: (params) => {
         return {
           color: getColorText(
@@ -435,9 +398,11 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
       headerName: "Thấp nhất",
       field: "Min",
       colId: "23",
-      hide: false,
-      suppressSizeToFit: true,
-      maxWidth: 50,
+      hide: INDEX.Min,
+      // suppressSizeToFit: true,
+      maxWidth: 60,
+      minWidth: 60,
+      width: 60,
       cellStyle: (params) => {
         return {
           color: getColorText(
@@ -454,9 +419,9 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
       headerName: "Trung bình",
       field: "Avg",
       colId: "24",
-      hide: check.Avg,
-      suppressSizeToFit: true,
-      maxWidth: 50,
+      hide: INDEX.Avg,
+      // suppressSizeToFit: true,
+      // maxWidth: 50,
       // cellStyle: (params) => {
       //   return { color: getColorText(params) };
       // },
@@ -466,27 +431,27 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
       headerName: "NN mua",
       field: "NNMua",
       colId: "11",
-      hide: false,
-      suppressSizeToFit: true,
-      maxWidth: 60,
+      hide: INDEX.NNMua,
+      // suppressSizeToFit: true,
       valueGetter: (params) => valueGetter(Number(params.data.NNMua)),
     },
     {
       headerName: "NN bán",
       field: "NNBan",
       colId: "12",
-      hide: false,
-      suppressSizeToFit: true,
-      maxWidth: 60,
+      hide: INDEX.NNBan,
+      // suppressSizeToFit: true,
       valueGetter: (params) => valueGetter(Number(params.data.NNBan)),
     },
     {
       headerName: "Room còn lại",
       field: "Room",
       colId: "13",
-      hide: false,
-      suppressSizeToFit: true,
-      maxWidth: 100,
+      hide: INDEX.Room,
+      width: 120,
+      maxWidth: 120,
+      minWidth: 120,
+      // suppressSizeToFit: true,
       valueGetter: (params) => valueGetter(Number(params.data.Room)),
     },
   ];
@@ -498,4 +463,5 @@ export const gridOptions: GridOptions = {
   },
   rowBuffer: 0,
   suppressContextMenu: true,
+  enableCellChangeFlash: true,
 };
