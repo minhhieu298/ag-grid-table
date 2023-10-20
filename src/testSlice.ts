@@ -30,6 +30,15 @@ export const fetchData = createAsyncThunk<IData[], string>(
   }
 );
 
+export const fetchCate = createAsyncThunk("fetch_cate", async () => {
+  const response = await fetch(
+    `https://eztrade.fpts.com.vn/api/ApiData/get_cache_stockinfo`
+  );
+  const convert = await response.json();
+  const res = JSON.parse(convert);
+  return res;
+});
+
 const reducer = createSlice({
   name: "change",
   initialState: {

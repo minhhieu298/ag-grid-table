@@ -209,6 +209,32 @@ span.ag-header-cell-text {
   outline: none;
   border: none;
 }
+.custom-tooltip {
+  width: 150px;
+  position: relative;
+  background-color: #66ccff;
+}
+
+.custom-tooltip::before {
+  position: absolute;
+  content: "";
+  top: -10px;
+  width: 0;
+  height: 0;
+  border-bottom: 10px solid #66ccff;
+  border-right: 10px solid transparent;
+  left: 5px;
+  z-index: 999;
+}
+
+.custom-tooltip p {
+  margin: 5px;
+  white-space: nowrap;
+}
+
+.custom-tooltip p:first-of-type {
+  font-weight: bold;
+}
 
 /* 
 :root {

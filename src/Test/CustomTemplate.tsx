@@ -114,7 +114,6 @@ export const CustomHeader = (props: ICustomHeaderParams) => {
 };
 
 export const CustomCellRenderInput = (props: ICellRendererParams) => {
-
   return (
     <div>
       <input type="checkbox" name="" id="" /> {props.value}
