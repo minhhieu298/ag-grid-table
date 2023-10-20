@@ -1,9 +1,9 @@
 import "./App.css";
-import Table from "./Test/Table";
 import { Route, Routes } from "react-router-dom";
 
 // import { QueryClient, QueryClientProvider } from "react-query";
 import TableHNX from "./Test/TableHNX";
+import Table from "./Test/Table";
 
 // const queryClient = new QueryClient();
 function App() {
