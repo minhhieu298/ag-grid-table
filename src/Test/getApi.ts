@@ -1,6 +1,6 @@
 import { IData } from "./Table";
 export interface Data {
-  id: string;
+  RowID: string;
   Ma: string;
   TC: string;
   Tran: string;
@@ -54,53 +54,135 @@ export interface ISocketData {
 }
 
 export function getDataApi(data: IData[]) {
-  const arr = data.map((item) => {
-    return {
-      id: item.RowID,
-      Ma: item.Info[0][1],
-      TC: item.Info[1][1],
-      Tran: item.Info[2][1],
-      San: item.Info[3][1],
-      MKL4: item.Info[4][1],
-      MG3: item.Info[5][1],
-      MKL3: item.Info[6][1],
-      MG2: item.Info[7][1],
-      MKL2: item.Info[8][1],
-      MG1: item.Info[9][1],
-      MKL1: item.Info[10][1],
-      Gia: item.Info[11][1],
-      KL: item.Info[12][1],
-      PD: item.Info[13][1], //price difference
-      Percent: Number(
-        (
-          ((Number(item.Info[11][1]) - Number(item.Info[1][1])) /
-            Number(item.Info[1][1])) *
-          100
-        ).toFixed(1)
-      ), //percent,
-      BG1: item.Info[14][1],
-      BKL1: item.Info[15][1],
-      BG2: item.Info[16][1],
-      BKL2: item.Info[17][1],
-      BG3: item.Info[18][1],
-      BKL3: item.Info[19][1],
-      BKL4: item.Info[20][1],
-      TotalKL: item.Info[21][1],
-      Open: item.Info[22][1],
-      Max: item.Info[23][1],
-      Min: item.Info[24][1],
-      Avg: item.Info[25][1],
-      NNMua: item.Info[26][1],
-      NNBan: item.Info[27][1],
-      Room: item.Info[28][1],
-      U29: item.Info[29][1],
-      U30: item.Info[30][1],
-      U31: item.Info[31][1],
-      rowPinned: false,
-    };
-  });
+  if (data.length === 0) {
+    return [];
+  } else {
+    const res = data.map((item) => ({
+      RowID: item.RowID,
+      Info: item.Info.sort((a, b) => Number(a[0]) - Number(b[0])).map(
+        (item) => item
+      ),
+    }));
+    // return res
+    const arr = res.map((item) => {
+      return {
+        RowID: item.RowID,
+        Ma: item.Info[0][1],
+        TC: item.Info[1][1],
+        Tran: item.Info[2][1],
+        San: item.Info[3][1],
+        MKL4: item.Info[4][1],
+        MG3: item.Info[5][1],
+        MKL3: item.Info[6][1],
+        MG2: item.Info[7][1],
+        MKL2: item.Info[8][1],
+        MG1: item.Info[9][1],
+        MKL1: item.Info[10][1],
+        Gia: item.Info[11][1],
+        KL: item.Info[12][1],
+        PD: item.Info[13][1], //price difference
+        Percent: Number(
+          (
+            ((Number(item.Info[11][1]) - Number(item.Info[1][1])) /
+              Number(item.Info[1][1])) *
+            100
+          ).toFixed(1)
+        ), //percent,
+        BG1: item.Info[14][1],
+        BKL1: item.Info[15][1],
+        BG2: item.Info[16][1],
+        BKL2: item.Info[17][1],
+        BG3: item.Info[18][1],
+        BKL3: item.Info[19][1],
+        BKL4: item.Info[20][1],
+        TotalKL: item.Info[21][1],
+        Open: item.Info[22][1],
+        Max: item.Info[23][1],
+        Min: item.Info[24][1],
+        Avg: item.Info[25][1],
+        NNMua: item.Info[26][1],
+        NNBan: item.Info[27][1],
+        Room: item.Info[28][1],
+        U29: item.Info[29][1],
+        U30: item.Info[30][1],
+        U31: item.Info[31][1],
+        rowPinned: false,
+      };
+    });
 
-  return arr;
+    return arr;
+  }
+
+  // const hnx = data.map((item) => ({
+  //   RowID: item.RowID,
+  //   Ma: item.Info[12][1],
+  //   TC: item.Info[13][1],
+  //   Tran: item.Info[15][1],
+  //   San: item.Info[14][1],
+  //   MKL4: item.Info[16][1],
+  //   MG3: item.Info[8][1],
+  //   MKL3: item.Info[9][1],
+  //   MG2: item.Info[4][1],
+  //   MKL2: item.Info[5][1],
+  //   MG1: item.Info[0][1],
+  //   MKL1: item.Info[1][1],
+  //   Gia: item.Info[18][1],
+  //   KL: item.Info[19][1],
+  //   PD: item.Info[28][1], //price difference
+  //   Percent: Number(
+  //     (
+  //       ((Number(item.Info[18][1]) - Number(item.Info[13][1])) /
+  //         Number(item.Info[13][1])) *
+  //       100
+  //     ).toFixed(1)
+  //   ), //percent,
+  //   BG1: item.Info[2][1],
+  //   BKL1: item.Info[3][1],
+  //   BG2: item.Info[6][1],
+  //   BKL2: item.Info[7][1],
+  //   BG3: item.Info[10][1],
+  //   BKL3: item.Info[11][1],
+  //   BKL4: item.Info[17][1],
+  //   TotalKL: item.Info[20][1],
+  //   Open: item.Info[21][1],
+  //   Max: item.Info[22][1],
+  //   Min: item.Info[23][1],
+  //   Avg: item.Info[24][1],
+  //   NNMua: item.Info[25][1],
+  //   NNBan: item.Info[26][1],
+  //   Room: item.Info[27][1],
+  //   U29: item.Info[29][1],
+  //   U30: item.Info[30][1],
+  //   U31: item.Info[31][1],
+  //   rowPinned: false,
+  // }));
+  // return hnx;
+}
+
+export function getDataApiTest(data: IData[]) {
+  const obj: { [key: string]: IData } = {};
+  if (data.length === 0) return [];
+  const res = data.map((item) => ({
+    RowID: item.RowID,
+    Info: item.Info.sort((a, b) => Number(a[0]) - Number(b[0])),
+  }));
+  // console.log(res);
+  for (const item of res) {
+    const RowID = item.Info[0][1];
+    obj[RowID] = { RowID: item.RowID, Info: item.Info };
+  }
+
+  return obj;
+
+  // const secInfo: { [key: string]: IData } = data.reduce(
+  //   (prev: { [key: string]: IData }, curr) => {
+  //     const RowID = curr.RowID;
+  //     prev[RowID] = { RowID, Info: curr.Info };
+  //     return prev;
+  //   },
+  //   {}
+  // );
+  // return secInfo;
 }
 
 export function getColorText(
@@ -137,6 +219,7 @@ export function formatNumber(num: string): string {
 export function valueGetter(num: number): string | number {
   return num !== 0 ? formatNumber(num.toString()) : "";
 }
+
 export function getDataSocket(event: MessageEvent) {
   const jsonData: ISocketData = JSON.parse(event.data);
   if (Object.keys(jsonData).length !== 0) {
@@ -171,37 +254,65 @@ export function convertJsonData(
   return [];
 }
 
-export function updateImmutableObject(original: any, newValues: any) {
-  if (Object.keys(newValues).length !== 0) {
-    const map_2 = new Map(newValues.map((item: any) => [item.RowID, item]));
-
-    // // Tạo mảng result bằng cách cập nhật giá trị từ arr_2 vào arr_1
-    const result = original.map((item1: any) => {
-      const item2: any = map_2.get(item1.RowID);
-      if (item2) {
-        // Tìm thấy phần tử tương ứng trong arr_2
-        // Tạo một đối tượng mới kết hợp giá trị từ cả hai mảng arr_1 và arr_2
-        return {
-          RowID: item1.RowID,
-          Info: item1.Info.map(([key, value]: any) => {
-            const matchingItem = item2.Info.find(([key2]: any) => key2 === key);
-            return matchingItem ? [key, matchingItem[1]] : [key, value];
-          }),
-        };
-      } else {
-        // Không tìm thấy phần tử tương ứng trong arr_2
-        // Trả về một đối tượng mới sử dụng giá trị từ arr_1
-        return {
-          RowID: item1.RowID,
-          Info: item1.Info,
-        };
-      }
-    });
-    return result;
-  }
-  return {};
+export function hasRequiredProperties(item: any) {
+  return "RowID" in item && "Info" in item;
 }
 
+export function updateImmutableObject(original: any, newValues: any) {
+  // if (Object.keys(newValues).length !== 0) {
+  //   console.log({newValues});
+
+  //   if (newValues.every(hasRequiredProperties)) {
+
+  //   } else {
+  //     return {};
+  //   }
+  // }
+  // return {};
+  const map_2 = new Map(newValues?.map((item: any) => [item.RowID, item]));
+
+  // // Tạo mảng result bằng cách cập nhật giá trị từ arr_2 vào arr_1
+  const result = original?.map((item1: any) => {
+    const item2: any = map_2.get(item1.RowID);
+    // console.log({ data: item2.RowID === "BCC" ? item2 : null });
+    // console.log({
+    //   dataMer:
+    //     item2.RowID === "BCC"
+    //       ? {
+    //           RowID: item1.RowID,
+    //           Info: item1.Info.map(([key, value]: any) => {
+    //             const matchingItem = item2.Info.find(
+    //               ([key2]: any) => key2 === key
+    //             );
+    //             return matchingItem ? [key, matchingItem[1]] : [key, value];
+    //           }),
+    //         }
+    //       : null,
+    // });
+
+    if (item2 !== undefined) {
+      // Tìm thấy phần tử tương ứng trong arr_2
+      // Tạo một đối tượng mới kết hợp giá trị từ cả hai mảng arr_1 và arr_2
+      return {
+        RowID: item1.RowID,
+        Info: item1.Info.map(([key, value]: any) => {
+          const matchingItem = item2.Info.find(([key2]: any) => key2 === key);
+          return matchingItem ? [key, matchingItem[1]] : [key, value];
+        }),
+      };
+    } else {
+      // Không tìm thấy phần tử tương ứng trong arr_2
+      // Trả về một đối tượng mới sử dụng giá trị từ arr_1
+      return {
+        RowID: item1.RowID,
+        Info: item1.Info,
+      };
+    }
+  });
+  return result;
+}
+
+// hàm tự tạo data realtime để update khi click vào button
 export function generateRandomData() {
   const data = [];
   const rowID = "21";
@@ -211,13 +322,14 @@ export function generateRandomData() {
   for (let j = 0; j < numInfoItems; j++) {
     const key = (Math.floor(Math.random() * (31 - 1 + 1)) + 1).toString();
     const value = Math.floor(Math.random() * 100).toString();
-    info.push([key, value]);
+    info.push([Number(key), Number(value)]);
   }
 
   data.push({
     RowID: rowID,
     Info: info,
   });
+  console.log(data);
 
   return data;
 }

@@ -7,6 +7,68 @@
   resolved "https://registry.yarnpkg.com/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz#bd9154aec9983f77b3a034ecaa015c2e4201f6cf"
   integrity sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==
 
+"@ag-grid-community/client-side-row-model@^30.1.0":
+  version "30.2.0"
+  resolved "https://registry.yarnpkg.com/@ag-grid-community/client-side-row-model/-/client-side-row-model-30.2.0.tgz#b6a1184d316906895c6724aa3bc3d7280105938e"
+  integrity sha512-XCe7V/+qhmpldbP++XGbWvenkxfVY/YJ+/Y64e/ugNi8piQN8DBNSSoSn6cVVGmuYEdB2zACgKv60mg/tLngdQ==
+  dependencies:
+    "@ag-grid-community/core" "~30.2.0"
+
+"@ag-grid-community/core@^30.1.0", "@ag-grid-community/core@~30.2.0":
+  version "30.2.0"
+  resolved "https://registry.yarnpkg.com/@ag-grid-community/core/-/core-30.2.0.tgz#e349e9117781eb6832cb8420d6e53d8a5ef6e5e9"
+  integrity sha512-BdRavyYxyl0rx3w4VKQlV9KHRR9TIJ9RFt4FIsWUxC+VDC+VEL64J1PzgJqXqgkM7Zmb+rYbluA2UPmRrQQJ9A==
+
+"@ag-grid-enterprise/column-tool-panel@^30.1.0":
+  version "30.2.0"
+  resolved "https://registry.yarnpkg.com/@ag-grid-enterprise/column-tool-panel/-/column-tool-panel-30.2.0.tgz#345286808c30934b0037ac53ba7746320261dd7f"
+  integrity sha512-ZTs76EZTLxCWdCBgOHn0E1WWt2xyA/zhPfaWaX28CFSfjVaIeS0McAFtrRndUixBNjbKBxqsDkaKIrUUU71PNw==
+  dependencies:
+    "@ag-grid-community/core" "~30.2.0"
+    "@ag-grid-enterprise/core" "~30.2.0"
+    "@ag-grid-enterprise/row-grouping" "~30.2.0"
+    "@ag-grid-enterprise/side-bar" "~30.2.0"
+
+"@ag-grid-enterprise/core@~30.2.0":
+  version "30.2.0"
+  resolved "https://registry.yarnpkg.com/@ag-grid-enterprise/core/-/core-30.2.0.tgz#785994a505f1567db941a1eac8857e106ccdd474"
+  integrity sha512-0XZCBVoOCUmtOkaDr2g+r8ORbT+dV1UqA5dZMwPSC6P537RKPFFCe9YPjwGxPS06YB7VpQcnUF3Pw3TY6ibnyw==
+  dependencies:
+    "@ag-grid-community/core" "~30.2.0"
+
+"@ag-grid-enterprise/filter-tool-panel@^30.1.0":
+  version "30.2.0"
+  resolved "https://registry.yarnpkg.com/@ag-grid-enterprise/filter-tool-panel/-/filter-tool-panel-30.2.0.tgz#d0d7084045efc6862206efe73bf1253fe7d1a349"
+  integrity sha512-JgqZC4z0jooNqgR051Ag/3v73gxtP6FsMxinSljPEMZdG5HWqHV8wEKTqUh/CxwIx0nGGT5UnAZr/zf/hf/2FQ==
+  dependencies:
+    "@ag-grid-community/core" "~30.2.0"
+    "@ag-grid-enterprise/core" "~30.2.0"
+    "@ag-grid-enterprise/side-bar" "~30.2.0"
+
+"@ag-grid-enterprise/row-grouping@~30.2.0":
+  version "30.2.0"
+  resolved "https://registry.yarnpkg.com/@ag-grid-enterprise/row-grouping/-/row-grouping-30.2.0.tgz#d1d73ada66ab809189fda86cd786f31001024ff6"
+  integrity sha512-7ivUsltDhlyUTLaYJqmo075qGWQrmv5qGg/QPYexEPfAnNUdO6Ce7uyqG+iT2i/4qwq0sbogXlGpYNUesCYZ8w==
+  dependencies:
+    "@ag-grid-community/core" "~30.2.0"
+    "@ag-grid-enterprise/core" "~30.2.0"
+
+"@ag-grid-enterprise/set-filter@^30.1.0":
+  version "30.2.0"
+  resolved "https://registry.yarnpkg.com/@ag-grid-enterprise/set-filter/-/set-filter-30.2.0.tgz#61fd3edacf5cfa87e6efe2cf3628c6df5f1924a0"
+  integrity sha512-g+jyp+In1qsIpcD1rZFRg+BnUMW9z+PMmnJlWYZ/KIdwEleyle5DN+wJfe1cApmNsCznIWgGS3eU68sSmpFV3A==
+  dependencies:
+    "@ag-grid-community/core" "~30.2.0"
+    "@ag-grid-enterprise/core" "~30.2.0"
+
+"@ag-grid-enterprise/side-bar@~30.2.0":
+  version "30.2.0"
+  resolved "https://registry.yarnpkg.com/@ag-grid-enterprise/side-bar/-/side-bar-30.2.0.tgz#e32523668a1648fee0575dfb45e9ee9df6a1d0b4"
+  integrity sha512-OIZ09RfTIpFDbcsR0moDY4YgCFf78pLYj5wasMFnhJovY8TESCR1acMmUhQgSOUzlgX5rZlS+/pY+MxDnnjOXg==
+  dependencies:
+    "@ag-grid-community/core" "~30.2.0"
+    "@ag-grid-enterprise/core" "~30.2.0"
+
 "@ampproject/remapping@^2.2.0":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@ampproject/remapping/-/remapping-2.2.1.tgz#99e8e11851128b8702cd57c33684f1d0f260b630"
@@ -450,6 +512,11 @@
     redux "^4.2.1"
     redux-thunk "^2.4.2"
     reselect "^4.1.8"
+
+"@remix-run/router@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.2.1.tgz#812edd4104a15a493dda1ccac0b352270d7a188c"
+  integrity sha512-XiY0IsyHR+DXYS5vBxpoBe/8veTeoRpMHP+vDosLZxL5bnpetzI0igkxkLZS235ldLzyfkxF+2divEwWHP3vMQ==
 
 "@types/hoist-non-react-statics@^3.3.1":
   version "3.3.2"
@@ -1563,6 +1630,21 @@ react-refresh@^0.14.0:
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.14.0.tgz#4e02825378a5f227079554d4284889354e5f553e"
   integrity sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==
+
+react-router-dom@6.6.1:
+  version "6.6.1"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.6.1.tgz#1b96ec0b2cefa7319f1251383ea5b41295ee260d"
+  integrity sha512-u+8BKUtelStKbZD5UcY0NY90WOzktrkJJhyhNg7L0APn9t1qJNLowzrM9CHdpB6+rcPt6qQrlkIXsTvhuXP68g==
+  dependencies:
+    "@remix-run/router" "1.2.1"
+    react-router "6.6.1"
+
+react-router@6.6.1:
+  version "6.6.1"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.6.1.tgz#17de6cf285f2d1c9721a3afca999c984e5558854"
+  integrity sha512-YkvlYRusnI/IN0kDtosUCgxqHeulN5je+ew8W+iA1VvFhf86kA+JEI/X/8NqYcr11hCDDp906S+SGMpBheNeYQ==
+  dependencies:
+    "@remix-run/router" "1.2.1"
 
 react@^18.2.0:
   version "18.2.0"

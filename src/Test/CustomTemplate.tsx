@@ -1,57 +1,8 @@
 import { IHeaderParams } from "ag-grid-community";
-import { formatNumber, getColorText } from "./getApi";
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "../store";
 import { change } from "../testSlice";
-
-export const CellRenderTemplate = (props: any) => {
-  return (
-    <div className={getColorText(props)}>
-      {isNaN(props.value) ? (
-        <>
-          <input
-            type="checkbox"
-            checked={props.data.rowPinned}
-            onChange={() => {}}
-          />{" "}
-          <span>{props.value}</span>
-        </>
-      ) : props.value === 0 ? (
-        ""
-      ) : (
-        formatNumber(props.value)
-      )}
-    </div>
-  );
-};
-
-export const CellRenderPercent = (props: any) => {
-  return (
-    <div className={getColorText(props)}>
-      {props.data.PD === 0 ? "" : formatNumber(props.value) + "%"}
-    </div>
-  );
-};
-
-export const CellRenderDefault = (props: any) => {
-  return (
-    <div className="ag-cell-text-white">
-      {props.value === 0 ? "" : formatNumber(props.value)}
-    </div>
-  );
-};
-
-export const CellRenderTC = (props: any) => {
-  return <div className="ag-cell-text-yellow">{props.value}</div>;
-};
-
-export const CellRenderTran = (props: any) => {
-  return <div className="ag-cell-text-violet">{props.value}</div>;
-};
-
-export const CellRenderSan = (props: any) => {
-  return <div className="ag-cell-text-blue">{props.value}</div>;
-};
+import { ICellRendererParams } from "@ag-grid-community/core";
 
 export interface ICustomHeaderParams extends IHeaderParams {
   menuIcon: string;
@@ -159,5 +110,14 @@ export const CustomHeader = (props: ICustomHeaderParams) => {
         </div>
       )}
     </>
+  );
+};
+
+export const CustomCellRenderInput = (props: ICellRendererParams) => {
+
+  return (
+    <div>
+      <input type="checkbox" name="" id="" /> {props.value}
+    </div>
   );
 };

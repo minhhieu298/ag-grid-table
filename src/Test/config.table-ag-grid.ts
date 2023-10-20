@@ -1,11 +1,11 @@
 import { ColDef, ColGroupDef, GridOptions } from "ag-grid-community";
 import { getColorText, valueGetter } from "./getApi";
-import { CustomHeader } from "./CustomTemplate";
+import { CustomCellRenderInput, CustomHeader } from "./CustomTemplate";
 
 const check = {
-  MKL4: false,
-  BKL4: false,
-  Avg: false,
+  MKL4: true,
+  BKL4: true,
+  Avg: true,
 };
 
 export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
@@ -13,9 +13,9 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
     {
       headerName: "Mã",
       field: "Ma",
-      colId: "1",
-      suppressSizeToFit: true,
       width: 90,
+      minWidth: 90,
+      maxWidth: 90,
       cellStyle: (params) => {
         return {
           color: getColorText(
@@ -24,58 +24,56 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
             params.data.Tran,
             params.data.San
           ),
+          fontSize: "10pt",
         };
       },
-      rowDrag: true,
+      cellRenderer: CustomCellRenderInput,
     },
     {
       headerName: "TC",
       field: "TC",
-      colId: "2",
-      suppressSizeToFit: true,
-      maxWidth: 50,
+      width: 60,
+      minWidth: 60,
+      maxWidth: 60,
       cellStyle: () => {
-        return { color: "#fdff12" };
+        return { fontSize: "10pt", color: "#fdff12" };
       },
     },
     {
       headerName: "Trần",
       field: "Tran",
-      colId: "3",
-      suppressSizeToFit: true,
-      maxWidth: 50,
+      width: 60,
+      minWidth: 60,
+      maxWidth: 60,
       cellStyle: () => {
-        return { color: "#f23aff" };
+        return { fontSize: "10pt", color: "#f23aff" };
       },
     },
     {
       headerName: "Sàn",
       field: "San",
-      colId: "4",
-      suppressSizeToFit: true,
-      maxWidth: 50,
+      width: 60,
+      minWidth: 60,
+      maxWidth: 60,
       cellStyle: () => {
-        return { color: "#66ccff" };
+        return { fontSize: "10pt", color: "#66ccff" };
       },
     },
     {
       headerName: "Mua",
-      resizable: false,
-      colId: "5",
       children: [
         {
           headerName: "KL4",
           field: "MKL4",
-          colId: "25",
-          hide: check.MKL4,
+          hide: false,
+          cellStyle: {
+            fontSize: "10pt",
+          },
           valueGetter: (params) => valueGetter(Number(params.data.MKL4)),
         },
         {
           headerName: "G3",
           field: "MG3",
-          colId: "26",
-          suppressSizeToFit: true,
-          maxWidth: 50,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -84,20 +82,14 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
                 params.data.Tran,
                 params.data.San
               ),
+              fontSize: "10pt",
             };
-          },
-          cellClassRules: {
-            highlight: (params) => params.data,
           },
           valueGetter: (params) => valueGetter(Number(params.data.MG3)),
         },
         {
           headerName: "KL3",
           field: "MKL3",
-          colId: "27",
-          suppressSizeToFit: true,
-          maxWidth: 100,
-          width: 80,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -106,6 +98,7 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
                 params.data.Tran,
                 params.data.San
               ),
+              fontSize: "10pt",
             };
           },
           valueGetter: (params) => valueGetter(Number(params.data.MKL3)),
@@ -113,9 +106,6 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
         {
           headerName: "G2",
           field: "MG2",
-          colId: "28",
-          suppressSizeToFit: true,
-          maxWidth: 50,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -124,6 +114,7 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
                 params.data.Tran,
                 params.data.San
               ),
+              fontSize: "10pt",
             };
           },
           valueGetter: (params) => valueGetter(Number(params.data.MG2)),
@@ -131,10 +122,6 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
         {
           headerName: "KL2",
           field: "MKL2",
-          colId: "28",
-          suppressSizeToFit: true,
-          maxWidth: 100,
-          width: 70,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -143,6 +130,7 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
                 params.data.Tran,
                 params.data.San
               ),
+              fontSize: "10pt",
             };
           },
           valueGetter: (params) => valueGetter(Number(params.data.MKL2)),
@@ -150,9 +138,6 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
         {
           headerName: "G1",
           field: "MG1",
-          colId: "29",
-          suppressSizeToFit: true,
-          maxWidth: 50,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -161,6 +146,7 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
                 params.data.Tran,
                 params.data.San
               ),
+              fontSize: "10pt",
             };
           },
           valueGetter: (params) => valueGetter(Number(params.data.MG1)),
@@ -168,18 +154,15 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
         {
           headerName: "KL1",
           field: "MKL1",
-          colId: "30",
-          suppressSizeToFit: true,
-          maxWidth: 100,
-          width: 70,
           cellStyle: (params) => {
             return {
               color: getColorText(
-                params.data.MKL1,
+                params.data.MG1,
                 params.data.TC,
                 params.data.Tran,
                 params.data.San
               ),
+              fontSize: "10pt",
             };
           },
           valueGetter: (params) => valueGetter(Number(params.data.MKL1)),
@@ -188,12 +171,10 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
     },
     {
       headerName: "Khớp lệnh",
-      colId: "6",
       children: [
         {
           headerName: "Giá",
           field: "Gia",
-          colId: "14",
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -202,19 +183,14 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
                 params.data.Tran,
                 params.data.San
               ),
+              fontSize: "10pt",
             };
           },
           valueGetter: (params) => valueGetter(Number(params.data.Gia)),
-          maxWidth: 50,
-          suppressSizeToFit: true,
         },
         {
           headerName: "KL",
           field: "KL",
-          colId: "15",
-          suppressSizeToFit: true,
-          maxWidth: 100,
-          width: 80,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -223,15 +199,14 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
                 params.data.Tran,
                 params.data.San
               ),
+              fontSize: "10pt",
+              backGround: "#444444",
             };
           },
           valueGetter: (params) => valueGetter(Number(params.data.KL)),
         },
         {
-          colId: "16",
           field: str,
-          suppressSizeToFit: true,
-          maxWidth: 60,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -240,6 +215,8 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
                 params.data.Tran,
                 params.data.San
               ),
+              fontSize: "10pt",
+              backGround: "#444444",
             };
           },
           valueGetter: (params) => {
@@ -256,14 +233,10 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
     },
     {
       headerName: "Bán",
-      colId: "7",
       children: [
         {
           headerName: "G1",
           field: "BG1",
-          colId: "17",
-          suppressSizeToFit: true,
-          maxWidth: 50,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -272,6 +245,7 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
                 params.data.Tran,
                 params.data.San
               ),
+              fontSize: "10pt",
             };
           },
           valueGetter: (params) => valueGetter(Number(params.data.BG1)),
@@ -279,10 +253,6 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
         {
           headerName: "KL1",
           field: "BKL1",
-          colId: "18",
-          suppressSizeToFit: true,
-          maxWidth: 100,
-          width: 70,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -291,6 +261,7 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
                 params.data.Tran,
                 params.data.San
               ),
+              fontSize: "10pt",
             };
           },
           valueGetter: (params) => valueGetter(Number(params.data.BKL1)),
@@ -298,9 +269,6 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
         {
           headerName: "G2",
           field: "BG2",
-          colId: "19",
-          suppressSizeToFit: true,
-          maxWidth: 50,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -309,6 +277,7 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
                 params.data.Tran,
                 params.data.San
               ),
+              fontSize: "10pt",
             };
           },
           valueGetter: (params) => valueGetter(Number(params.data.BG2)),
@@ -316,10 +285,6 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
         {
           headerName: "KL2",
           field: "BKL2",
-          colId: "20",
-          suppressSizeToFit: true,
-          maxWidth: 100,
-          width: 70,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -328,6 +293,7 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
                 params.data.Tran,
                 params.data.San
               ),
+              fontSize: "10pt",
             };
           },
           valueGetter: (params) => valueGetter(Number(params.data.BKL2)),
@@ -335,9 +301,6 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
         {
           headerName: "G3",
           field: "BG3",
-          colId: "21",
-          suppressSizeToFit: true,
-          maxWidth: 50,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -346,6 +309,7 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
                 params.data.Tran,
                 params.data.San
               ),
+              fontSize: "10pt",
             };
           },
           valueGetter: (params) => valueGetter(Number(params.data.BG3)),
@@ -353,10 +317,6 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
         {
           headerName: "KL3",
           field: "BKL3",
-          colId: "22",
-          suppressSizeToFit: true,
-          maxWidth: 100,
-          width: 80,
           cellStyle: (params) => {
             return {
               color: getColorText(
@@ -365,6 +325,7 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
                 params.data.Tran,
                 params.data.San
               ),
+              fontSize: "10pt",
             };
           },
           valueGetter: (params) => valueGetter(Number(params.data.BKL3)),
@@ -372,14 +333,10 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
         {
           headerName: "KL4",
           field: "BKL4",
-          colId: "25",
-          hide: check.BKL4,
-          suppressSizeToFit: true,
-          maxWidth: 35,
-          width: 35,
-          // cellStyle: (params) => {
-          //   return { color: getColorText(params) };
-          // },
+          hide: false,
+          cellStyle: {
+            fontSize: "10pt",
+          },
           valueGetter: (params) => valueGetter(Number(params.data.BKL4)),
         },
       ],
@@ -387,19 +344,23 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
     {
       headerName: "Tổng KL",
       field: "TotalKL",
-      colId: "8",
-      suppressSizeToFit: true,
-      maxWidth: 80,
-      width: 80,
+      width: 100,
+      maxWidth: 100,
+      minWidth: 100,
       valueGetter: (params) => valueGetter(Number(params.data.TotalKL)),
+      cellStyle: {
+        fontSize: "10pt",
+        fontWeight: "400",
+      },
     },
     {
       headerName: "Mở cửa",
+      // autoSize: true,
       field: "Open",
-      colId: "9",
       hide: false,
-      suppressSizeToFit: true,
-      maxWidth: 50,
+      width: 60,
+      minWidth: 60,
+      maxWidth: 60,
       cellStyle: (params) => {
         return {
           color: getColorText(
@@ -408,6 +369,7 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
             params.data.Tran,
             params.data.San
           ),
+          fontSize: "10pt",
         };
       },
       valueGetter: (params) => valueGetter(Number(params.data.Open)),
@@ -415,10 +377,10 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
     {
       headerName: "Cao nhất",
       field: "Max",
-      colId: "10",
       hide: false,
-      suppressSizeToFit: true,
-      maxWidth: 50,
+      width: 60,
+      minWidth: 60,
+      maxWidth: 60,
       cellStyle: (params) => {
         return {
           color: getColorText(
@@ -427,6 +389,7 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
             params.data.Tran,
             params.data.San
           ),
+          fontSize: "10pt",
         };
       },
       valueGetter: (params) => valueGetter(Number(params.data.Max)),
@@ -434,10 +397,10 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
     {
       headerName: "Thấp nhất",
       field: "Min",
-      colId: "23",
       hide: false,
-      suppressSizeToFit: true,
-      maxWidth: 50,
+      width: 60,
+      minWidth: 60,
+      maxWidth: 60,
       cellStyle: (params) => {
         return {
           color: getColorText(
@@ -446,6 +409,7 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
             params.data.Tran,
             params.data.San
           ),
+          fontSize: "10pt",
         };
       },
       valueGetter: (params) => valueGetter(Number(params.data.Min)),
@@ -453,49 +417,63 @@ export const ColumnDefinition = (str: string): (ColDef | ColGroupDef)[] => {
     {
       headerName: "Trung bình",
       field: "Avg",
-      colId: "24",
       hide: check.Avg,
-      suppressSizeToFit: true,
-      maxWidth: 50,
-      // cellStyle: (params) => {
-      //   return { color: getColorText(params) };
-      // },
+      cellStyle: (params) => {
+        return {
+          color: getColorText(
+            params.data.Avg,
+            params.data.TC,
+            params.data.Tran,
+            params.data.San
+          ),
+          fontSize: "10pt",
+        };
+      },
       valueGetter: (params) => valueGetter(Number(params.data.Avg)),
     },
     {
       headerName: "NN mua",
       field: "NNMua",
-      colId: "11",
       hide: false,
-      suppressSizeToFit: true,
-      maxWidth: 60,
       valueGetter: (params) => valueGetter(Number(params.data.NNMua)),
+      cellStyle: {
+        fontSize: "10pt",
+      },
     },
     {
       headerName: "NN bán",
       field: "NNBan",
-      colId: "12",
       hide: false,
-      suppressSizeToFit: true,
-      maxWidth: 60,
       valueGetter: (params) => valueGetter(Number(params.data.NNBan)),
+      cellStyle: {
+        fontSize: "10pt",
+        fontWeight: "400",
+      },
     },
     {
       headerName: "Room còn lại",
       field: "Room",
-      colId: "13",
       hide: false,
-      suppressSizeToFit: true,
-      maxWidth: 100,
+      width: 150,
+      minWidth: 150,
+      maxWidth: 150,
       valueGetter: (params) => valueGetter(Number(params.data.Room)),
+      cellStyle: {
+        fontSize: "10pt",
+        fontWeight: "400",
+      },
     },
   ];
 };
 
 export const gridOptions: GridOptions = {
   getRowId: (params) => {
-    return params.data.id;
+    return params.data.RowID;
   },
   rowBuffer: 0,
   suppressContextMenu: true,
+  enableCellChangeFlash: true,
+  rowDragManaged: true,
+  rowDragEntireRow: true,
+  animateRows: true,
 };

@@ -15,7 +15,6 @@ import { ColumnsToolPanelModule } from "@ag-grid-enterprise/column-tool-panel";
 import { FiltersToolPanelModule } from "@ag-grid-enterprise/filter-tool-panel";
 import { SetFilterModule } from "@ag-grid-enterprise/set-filter";
 import { Link } from "react-router-dom";
-
 ModuleRegistry.registerModules([
   ClientSideRowModelModule,
   ColumnsToolPanelModule,
@@ -46,7 +45,7 @@ export interface IRow {
   RoomCL: number;
 }
 
-const Table = () => {
+const TableHNX = () => {
   const containerStyle = useMemo(
     () => ({ width: "100%", minHeight: "100vh" }),
     []
@@ -111,14 +110,14 @@ const Table = () => {
   }, [dispatch, table]);
 
   useEffect(() => {
-    dispatch(fetchData("hsx"));
+    dispatch(fetchData("hnx"));
   }, [dispatch]);
   return (
     <>
       <div
         style={{ padding: "10px 20px", background: "pink", maxWidth: "100px" }}
       >
-        <Link to="/hnx">HNX</Link>
+        <Link to="/">HSX</Link>
       </div>
       <div style={containerStyle}>
         <div
@@ -143,4 +142,4 @@ const Table = () => {
   );
 };
 
-export default Table;
+export default TableHNX;
